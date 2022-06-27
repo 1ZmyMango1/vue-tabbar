@@ -1,17 +1,28 @@
 <template>
-  <div>
+  <div class="app">
     <MyHeader title="tabbar"></MyHeader>
-    <MyFooter :tabList="tabList"></MyFooter>
+    <component :is="componentName"></component>
+    <MyFooter
+      :tabList="tabList"
+      @component-name="componentName = $event"
+    ></MyFooter>
   </div>
 </template>
 
 <script>
 import MyHeader from './components/MyHeader.vue'
 import MyFooter from './components/MyFooter.vue'
+
+import MyGoodsList from './views/MyGoodsList.vue'
+import MyGoodsSearch from './views/MyGoodsSearch.vue'
+import MyUserInfo from './views/MyUserInfo.vue'
 export default {
   components: {
     MyHeader,
-    MyFooter
+    MyFooter,
+    MyGoodsList,
+    MyGoodsSearch,
+    MyUserInfo
   },
   data() {
     return {
@@ -31,10 +42,15 @@ export default {
           text: '我的信息',
           componentName: 'MyUserInfo'
         }
-      ]
+      ],
+      componentName: 'MyGoodsList'
     }
   }
 }
 </script>
 
-<style></style>
+<style>
+.app {
+  margin-top: 50px;
+}
+</style>

@@ -1,6 +1,12 @@
 <template>
   <div class="my-tab-bar">
-    <div class="tab-item" v-for="(item, index) in tabList" :key="index">
+    <div
+      class="tab-item"
+      :class="{ current: currentIndex === index }"
+      v-for="(item, index) in tabList"
+      :key="index"
+      @click="btnCurrent(index, item.componentName)"
+    >
       <!-- 图标 -->
       <span :class="`iconfont ${item.iconText}`" id="app"></span>
       <!-- 文字 -->
@@ -15,6 +21,19 @@ export default {
     tabList: {
       type: Array,
       required: true
+    }
+  },
+  data() {
+    return {
+      currentIndex: 0,
+      componentName: ''
+    }
+  },
+  methods: {
+    btnCurrent(index, comName) {
+      this.currentIndex = index
+      this.componentName = comName
+      this.$emit('component-name', this.componentName)
     }
   }
 }
@@ -41,6 +60,9 @@ export default {
 
 .current {
   color: #1d7bff;
+  .iconfont {
+    color: #1d7bff;
+  }
 }
 
 #app {
